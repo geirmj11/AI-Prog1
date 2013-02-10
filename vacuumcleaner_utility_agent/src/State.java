@@ -35,8 +35,9 @@ public class State
 				}
 				
 		for (Point d : dirt)
-			if (s.curPos.equals(d))
-				s.dirt.remove(s);
+			for (State s : l)
+				if (s.curPos.equals(d))
+					s.dirt.remove(s);
 					
 		return l;
 	}
