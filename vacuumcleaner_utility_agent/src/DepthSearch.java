@@ -27,7 +27,22 @@ public class DepthSearch
 				break; // No solution found.
 		}	
 		
-		//TODO Path to Home !
+		//Get home ! :)
+		frontier = new LinkedList<State>();
+		visited = new ArrayList<State>();
+		while (!cur.curPos.equals(home))
+		{		
+			if (!visited.contains(cur))
+			{
+				visited.add(cur);
+				for (State p : cur.legalMoves(size.x,size.y))
+					frontier.add(p);
+			}
+			if (frontier.size() > 0)
+				cur = frontier.remove();
+			else
+				break; // No solution found.
+		}	
 		
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();
