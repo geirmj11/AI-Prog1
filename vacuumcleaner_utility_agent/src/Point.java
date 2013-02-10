@@ -23,7 +23,7 @@ public class Point
 		if (x != other.x)
 			return false;
 		if (y != other.y)
-			return false
+			return false;
 			
 		return true;
     }
