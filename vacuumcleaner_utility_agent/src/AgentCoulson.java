@@ -4,7 +4,7 @@ import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Agent
+public class AgentCoulson implements Agent
 {
     private Stack<Point> path;
     private int x;
