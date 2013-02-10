@@ -22,9 +22,9 @@ public class State
 			l.add(new State(new Point(curPos.x + 1,curPos.y),this,bumps,dirt));
 		if (curPos.x - 1 >= 0)                                  
 			l.add(new State(new Point(curPos.x - 1,curPos.y),this,bumps,dirt));
-		if (curPos.y + 1 < width)     
+		if (curPos.y + 1 < width)
 			l.add(new State(new Point(curPos.x,curPos.y + 1),this,bumps,dirt));
-		if (curPos.y - 1 >= 0)        
+		if (curPos.y - 1 >= 0)
 			l.add(new State(new Point(curPos.x,curPos.y - 1),this,bumps,dirt));
 		
 		for (Point p : bumps)
