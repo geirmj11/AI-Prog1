@@ -60,7 +60,7 @@ public class AgentCoulson implements Agent
    			        Matcher n = Pattern.compile("\\(\\s*AT\\s*OBSTACLE\\s+([0-9]+)\\s+([0-9]+)\\s*\\)").matcher(percept);
    			        if(n.matches()) {
    			            //System.out.println(":::::::::::::  OBSTACLE at " + n.group(1) + "," + n.group(2));
-   			            obstacles.add(new Point(Integer.parseInt(m.group(1)),Integer.parseInt(m.group(2))));
+   			            obstacles.add(new Point(Integer.parseInt(n.group(1)),Integer.parseInt(n.group(2))));
    			        }
 			    }
 				else {
@@ -70,7 +70,11 @@ public class AgentCoulson implements Agent
 				System.err.println("strange percept that does not match pattern: " + percept);
 			}
 		}
+        if(this.obstacles == null)  System.out.println("------------obstacles null!");
+        if(this.dirt == null)  System.out.println("------------obstacles null!");
+        System.out.println("------------blerg!");
 		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+        System.out.println("------------more blerg");
     }
 
     public String nextAction(Collection<String> percepts) {
@@ -83,7 +87,7 @@ public class AgentCoulson implements Agent
             System.out.println("------------Power on:");
             return "TURN_ON";
         }
-        if(path == null)             System.out.println("------------NULL!!:");
+        if(path == null) System.out.println("------------NULL!!:");
 	    if(path.empty()) {
 	        power = false;
             System.out.println("------------- Power off:");
