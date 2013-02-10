@@ -14,7 +14,7 @@ public class BreathSearch
 		Queue<State> frontier = new LinkedList<State>();
 		ArrayList<State> visited = new ArrayList<State>();
 		while (cur.dirt.size() > 0)
-		{		
+		{
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);

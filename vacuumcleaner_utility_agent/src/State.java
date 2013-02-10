@@ -3,11 +3,12 @@ import java.util.ArrayList;
 
 public class State
 {
-	public State(Point curPos, State prevPos, ArrayList<Point> bumps,ArrayList<Point> dirt)
+	public State(Point curPos, State prevPos, ArrayList<Point> dirt,  ArrayList<Point> bumps)
 	{
 		this.curPos = curPos;
 		this.prevPos = prevPos;
 		this.bumps = bumps;
+		this.dirt = dirt;
 	}
 	
 	public ArrayList<Point> bumps;
