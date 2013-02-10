@@ -16,6 +16,20 @@ public class AgentCoulson implements Agent
     private ArrayList<Point> obstacles = new ArrayList<Point>();
     private boolean power;
     
+    private Stack<Point> testSearch(Point testhome, Point testsize, ArrayList<Point> testdirt, ArrayList<Point> testobstacles){
+        System.out.println("testhome: " + testhome.x + "," + testhome.y);
+        System.out.println("testsize: " + testsize.x + "," + testsize.y);
+        for( Point p : testobstacles) {
+            System.out.println("testObs: " + p.x + "," + p.y);
+        } 
+        for( Point p : testdirt) {
+            System.out.println("testDirt: " + p.x + "," + p.y);
+        } 
+        Stack<Point> returnPath = new Stack<Point>();
+        returnPath.add(new Point(testhome.x,testhome.y));
+        returnPath.add(new Point(testhome.x+1, testhome.y));
+        return returnPath;
+    }
    
     public void init(Collection<String> percepts) {
         Pattern perceptNamePattern = Pattern.compile("\\(\\s*([^\\s]+).*");
@@ -54,7 +68,7 @@ public class AgentCoulson implements Agent
 				else if(perceptName.equals("AT")) {
 			        Matcher m = Pattern.compile("\\(\\s*AT\\s*DIRT\\s+([0-9]+)\\s+([0-9]+)\\s*\\)").matcher(percept);
 			        if (m.matches()) {
-			            //System.out.println(":::::::::::::  Dirt at " + m.group(1) + "," + m.group(2));
+			            System.out.println(":::::::::::::  Dirt at " + m.group(1) + "," + m.group(2));
 			            dirt.add(new Point(Integer.parseInt(m.group(1)),Integer.parseInt(m.group(2))));
    			        }
    			        Matcher n = Pattern.compile("\\(\\s*AT\\s*OBSTACLE\\s+([0-9]+)\\s+([0-9]+)\\s*\\)").matcher(percept);
@@ -73,7 +87,7 @@ public class AgentCoulson implements Agent
         if(this.obstacles == null)  System.out.println("------------obstacles null!");
         if(this.dirt == null)  System.out.println("------------obstacles null!");
         System.out.println("------------blerg!");
-		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+		this.path = testSearch(this.home, this.size, this.dirt, this.obstacles);
         System.out.println("------------more blerg");
     }
 
@@ -94,12 +108,13 @@ public class AgentCoulson implements Agent
     	    return "TURN_OFF";
     	}
     
-		//for (String p : percepts) {
-		//	if (p.equals("DIRT"))
-		//		return "SUCK";
-		//}
+		for (String p : percepts) {
+			if (p.equals("DIRT"))
+				return "SUCK";
+		}
    
 	    Point dest = path.peek();
+	    System.out.println("------------DEST" + dest.x + "," + dest.y); 
         if(dest.x == this.x){
 	        if(dest.y > this.y){
 	            if(orientation == 0){
@@ -108,11 +123,13 @@ public class AgentCoulson implements Agent
 	                return "GO";
 	            }
 	            if(orientation == 1) {
-	                System.out.println("------------TURN Left");     
+	                System.out.println("------------TURN Left");
+	                orientation--;     
 	                return "TURN_LEFT";
 	            }
 	            else {
                     System.out.println("------------Turn right:");
+                    orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
 	        }
@@ -123,10 +140,12 @@ public class AgentCoulson implements Agent
 	            }
 	            if(orientation == 3) {
                     System.out.println("------------Left:");
+                    orientation--;
 	                return "TURN_LEFT";
                 }
 	            else {
                     System.out.println("------------Right:");
+                    orientation = (orientation+1)%4;
                     return "TURN_RIGHT";
                 }
 	        }
@@ -140,10 +159,12 @@ public class AgentCoulson implements Agent
 	            }
 	            if(orientation == 2){
                     System.out.println("------------lewt:");
+                    orientation--;
 	                return "TURN_LEFT";
 	            }
 	            else {
 	                System.out.println("------------riwt:");   
+                    orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
 	        }
@@ -155,10 +176,12 @@ public class AgentCoulson implements Agent
 	            }
 	            if(orientation == 0) {
                     System.out.println("------------lewttt:");
+                    orientation--;
 	                return "TURN_LEFT";
 	            }
 	            else {
                     System.out.println("------------rojt:");   
+                    orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
 	        }
