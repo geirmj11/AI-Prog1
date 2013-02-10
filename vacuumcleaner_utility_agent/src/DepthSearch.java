@@ -27,6 +27,8 @@ public class DepthSearch
 				break; // No solution found.
 		}	
 		
+		//TODO Path to Home !
+		
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();
 		for	(;cur != null; cur = cur.prevPos)
