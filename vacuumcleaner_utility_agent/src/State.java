@@ -49,4 +49,22 @@ public class State
 				s.dirt.remove(s);
 		return s;
 	}
+	
+	
+    public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (obj.getClass() != getClass())
+            return false;
+		
+		State other = (State)obj;
+		if (!curPos.equals(other.curPos))
+			return false;
+		if (dirt.size() != dirt.size())
+			return false;
+			
+		return true;
+    }
 }

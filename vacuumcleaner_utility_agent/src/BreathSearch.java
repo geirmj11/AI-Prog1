@@ -10,13 +10,21 @@ public class BreathSearch
 	{
 		State cur = new State(home, null,dirts,bumps);
 		
-		Queue<State> frontier = new LinkedList<State>();
 		//Shearch for the path.
+		Queue<State> frontier = new LinkedList<State>();
+		ArrayList<State> visited = new ArrayList<State>();
 		while (cur.dirt.size() > 0)
-		{
-			for (State p : cur.legalMoves(size.x,size.y))
-				frontier.add(p);
-			cur = frontier.remove();
+		{		
+			if (!visited.contains(cur))
+			{
+				visited.add(cur);
+				for (State p : cur.legalMoves(size.x,size.y))
+					frontier.add(p);
+			}
+			if  (frontier.size() > 0)
+				cur = frontier.remove();
+			else
+				break; // No solution found.
 		}	
 		
 		//Building the path.
