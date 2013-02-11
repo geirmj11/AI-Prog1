@@ -124,12 +124,12 @@ public class AgentCoulson implements Agent
 	                return "GO";
 	            }
 	            if(orientation == 1) {
-	                System.out.println("------------TURN Left");
+	                System.out.println("------------y-left");
 	                orientation--;     
 	                return "TURN_LEFT";
 	            }
 	            else {
-                    System.out.println("------------Turn right:");
+                    System.out.println("------------y-right:");
                     orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
@@ -141,12 +141,12 @@ public class AgentCoulson implements Agent
 	                return "GO";
 	            }
 	            if(orientation == 3) {
-                    System.out.println("------------Left:");
+                    System.out.println("------------Y-Left:");
                     orientation--;
 	                return "TURN_LEFT";
                 }
 	            else {
-                    System.out.println("------------Right:");
+                    System.out.println("------------Y-Right:");
                     orientation = (orientation+1)%4;
                     return "TURN_RIGHT";
                 }
@@ -157,16 +157,16 @@ public class AgentCoulson implements Agent
 	            if(orientation == 1){
    	                this.x = dest.x;
                     path.pop();
-                    System.out.println("------------gow:");
+                    System.out.println("------------x-go");
 	                return "GO";
 	            }
 	            if(orientation == 2){
-                    System.out.println("------------lewt:");
+                    System.out.println("------------x-left");
                     orientation--;
 	                return "TURN_LEFT";
 	            }
 	            else {
-	                System.out.println("------------riwt:");   
+	                System.out.println("------------x-right");   
                     orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
@@ -175,16 +175,16 @@ public class AgentCoulson implements Agent
 	            if(orientation == 3){
    	                this.x = dest.x;
 	                path.pop();
-                    System.out.println("------------goW:");
+                    System.out.println("------------X-Go");
 	                return "GO";
 	            }
 	            if(orientation == 0) {
-                    System.out.println("------------lewttt:");
-                    orientation--;
+                    System.out.println("------------X-Left");
+                    orientation += 3;
 	                return "TURN_LEFT";
 	            }
 	            else {
-                    System.out.println("------------rojt:");   
+                    System.out.println("------------X-Right");   
                     orientation = (orientation+1)%4;
 	                return "TURN_RIGHT";
 	            }
