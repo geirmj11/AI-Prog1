@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class WeightedState implements Comparator<WeightedState>
+public class WeightedState implements Comparable<WeightedState>
 {
 	public WeightedState(Point curPos, WeightedState prevPos, HashSet<Point> dirt,  HashSet<Point> bumps)
 	{
@@ -40,6 +40,8 @@ public class WeightedState implements Comparator<WeightedState>
 		for (WeightedState ws : l){
 			if (dirt.contains(ws.curPos))
 				ws.dirt.remove(ws.curPos);
+			if (prevPos == null)
+				continue;
 			if (!((prevPos.curPos.x + ws.curPos.x)/2 == curPos.x && 
 				(prevPos.curPos.y + ws.curPos.y)/2 == curPos.y))
 				ws.weight = 2; // has to turn left.
@@ -81,9 +83,9 @@ public class WeightedState implements Comparator<WeightedState>
     }
 	
 	@Override
-	public int compare(WeightedState s1, WeightedState s2) {
-		if (s1.weight < s2.weight) return -1;
-		if (s1.weight > s2.weight) return +1;
+	public int compareTo(WeightedState other) {
+		if (weight < other.weight) return -1;
+		if (weight > other.weight) return +1;
 		return 0;
 	}
 

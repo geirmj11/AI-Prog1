@@ -73,7 +73,7 @@ public class AgentCoulson implements Agent
         if(this.dirt == null)  System.out.println("------------obstacles null!");
         System.out.println("------------blerg!");
 		//this.path = testSearch(this.home, this.size, this.dirt, this.obstacles);
-		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+		this.path = UniformSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
         System.out.println("------------more blerg");
     }
 
