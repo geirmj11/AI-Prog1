@@ -2,8 +2,7 @@ import java.util.*;
 
 public class AstarSearch
 {
-    /*
-    public int heuristic(WeigthedState check) {
+    public static int heuristic(WeightedState check) {
         int returnValue = 0;
         for(Point p : check.dirt) {
             int temp = ((p.x-check.curPos.x)*(p.x-check.curPos.x)+(p.y-check.curPos.y)*(p.y-check.curPos.y)); //manhattan distance í næsta punkt
@@ -14,18 +13,18 @@ public class AstarSearch
     
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirt, ArrayList<Point> bumps)
 	{
-		State cur = new State(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
+		WeightedState cur = new WeightedState(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
 
 		//Shearch for the path.
-		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirt.size(), WeightedState.Weight_Order);
-		HashSet<WeightedState> visited = new HashSet<State>();
+		PriorityQueue<WeightedState> frontier = new PriorityQueue<WeightedState>();
+		HashSet<WeightedState> visited = new HashSet<WeightedState>();
 		while (cur.dirt.size() > 0)
 		{
 			if (!visited.contains(cur))
 			{
 			    cur.weight += heuristic(cur);
 				visited.add(cur);
-				for (State p : cur.legalMoves(size.x,size.y))
+				for (WeightedState p : cur.legalMoves(size.x,size.y))
 					frontier.add(p);
 			}
 			if  (frontier.size() > 0)
@@ -34,14 +33,14 @@ public class AstarSearch
 				break; // No solution found.
 		}
 		//Get home ! :)
-		frontier = new LinkedList<State>();
-		visited = new HashSet<State>();
+		frontier = new PriorityQueue<WeightedState>();
+		visited = new HashSet<WeightedState>();
 		while (!cur.curPos.equals(home))
 		{
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
-				for (State p : cur.legalMoves(size.x,size.y))
+				for (WeightedState p : cur.legalMoves(size.x,size.y))
 					frontier.add(p);
 			}
 			if (frontier.size() > 0)
@@ -58,5 +57,5 @@ public class AstarSearch
 		}
 		path.pop();
 		return path;
-	}*/
+	}
 }
