@@ -2,6 +2,7 @@ import java.util.*;
 
 public class AstarSearch
 {
+    /*
     public int heuristic(WeigthedState check) {
         int returnValue = 0;
         for(Point p : check.dirt) {
@@ -16,7 +17,7 @@ public class AstarSearch
 		State cur = new State(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
 
 		//Shearch for the path.
-		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirt.size(), );
+		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirt.size(), WeightedState.Weight_Order);
 		HashSet<WeightedState> visited = new HashSet<State>();
 		while (cur.dirt.size() > 0)
 		{
@@ -57,5 +58,5 @@ public class AstarSearch
 		}
 		path.pop();
 		return path;
-	}
+	}*/
 }
