@@ -16,7 +16,7 @@ public class AstarSearch
 		State cur = new State(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
 
 		//Shearch for the path.
-		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirt.size(), );
+		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirts.size(), );
 		HashSet<WeightedState> visited = new HashSet<State>();
 		while (cur.dirt.size() > 0)
 		{

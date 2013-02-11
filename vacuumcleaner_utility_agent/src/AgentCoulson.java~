@@ -113,7 +113,7 @@ public class AgentCoulson implements Agent
 	    if(orientation == correctOrient){
 	        if(xy == 0)this.x = dest.x;
 	        else this.y= dest.y;
-	        path.pop(); 
+	        path.pop();
 	        return "GO";
 	    }
 	    else {
