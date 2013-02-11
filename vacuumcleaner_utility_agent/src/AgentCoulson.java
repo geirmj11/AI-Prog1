@@ -15,22 +15,7 @@ public class AgentCoulson implements Agent
     private ArrayList<Point> dirt = new ArrayList<Point>();
     private ArrayList<Point> obstacles = new ArrayList<Point>();
     private boolean power;
-    
-    private Stack<Point> testSearch(Point testhome, Point testsize, ArrayList<Point> testdirt, ArrayList<Point> testobstacles){
-        System.out.println("testhome: " + testhome.x + "," + testhome.y);
-        System.out.println("testsize: " + testsize.x + "," + testsize.y);
-        for( Point p : testobstacles) {
-            System.out.println("testObs: " + p.x + "," + p.y);
-        } 
-        for( Point p : testdirt) {
-            System.out.println("testDirt: " + p.x + "," + p.y);
-        } 
-        Stack<Point> returnPath = new Stack<Point>();
-        returnPath.add(new Point(testhome.x,testhome.y));
-        returnPath.add(new Point(testhome.x+1, testhome.y));
-        return returnPath;
-    }
-   
+      
     public void init(Collection<String> percepts) {
         Pattern perceptNamePattern = Pattern.compile("\\(\\s*([^\\s]+).*");
         for (String percept:percepts) {
@@ -113,91 +98,33 @@ public class AgentCoulson implements Agent
             dirt.remove(spot);
             return "SUCK";
         }
-//		for (String p : percepts) {
-//		    System.out.println(p);
-//			if (p.equals("DIRT")) {
-//				return "SUCK";
-//		    }
-//		}
    
 	    Point dest = path.peek();
-	    System.out.println("------------DEST" + dest.x + "," + dest.y); 
         if(dest.x == this.x){
-	        if(dest.y > this.y){
-	            if(orientation == 0){
-	                this.y = dest.y;
-                    path.pop();
-                    System.out.println("------------GO:");
-	                return "GO";
-	            }
-	            if(orientation == 1) {
-	                System.out.println("------------y-left");
-	                orientation--;     
-	                return "TURN_LEFT";
-	            }
-	            else {
-                    System.out.println("------------y-right:");
-                    orientation = (orientation+1)%4;
-	                return "TURN_RIGHT";
-	            }
-	        }
-	        if(dest.y < this.y){
-	            if(orientation == 2){
-  	                this.y = dest.y;
-	                path.pop();
-	                return "GO";
-	            }
-	            if(orientation == 3) {
-                    System.out.println("------------Y-Left:");
-                    orientation--;
-	                return "TURN_LEFT";
-                }
-	            else {
-                    System.out.println("------------Y-Right:");
-                    orientation = (orientation+1)%4;
-                    return "TURN_RIGHT";
-                }
-	        }
+	        if(dest.y > this.y) return pickAction(0, 1, dest);
+	        else return pickAction(2, 1, dest);
 	    }
 	    else{
-	        if(dest.x > this.x){
-	            if(orientation == 1){
-   	                this.x = dest.x;
-                    path.pop();
-                    System.out.println("------------x-go");
-	                return "GO";
-	            }
-	            if(orientation == 2){
-                    System.out.println("------------x-left");
-                    orientation--;
-	                return "TURN_LEFT";
-	            }
-	            else {
-	                System.out.println("------------x-right");   
-                    orientation = (orientation+1)%4;
-	                return "TURN_RIGHT";
-	            }
+	        if(dest.x > this.x) return pickAction(1, 0, dest);
+	        else return pickAction(3,0,dest);
+	    }   
+	}    
+	public String pickAction(int correctOrient, int xy, Point dest) {
+	    if(orientation == correctOrient){
+	        if(xy == 0)this.x = dest.x;
+	        else this.y= dest.y;
+	        path.pop();
+	        return "GO";
+	    }
+	    else {
+	        if(((orientation+1)%4) == correctOrient) {
+    	        orientation = (orientation+1)%4;
+	            return "TURN_RIGHT";
 	        }
-	        if(dest.x < this.x){
-	            if(orientation == 3){
-   	                this.x = dest.x;
-	                path.pop();
-                    System.out.println("------------X-Go");
-	                return "GO";
-	            }
-	            if(orientation == 0) {
-                    System.out.println("------------X-Left");
-                    orientation += 3;
-	                return "TURN_LEFT";
-	            }
-	            else {
-                    System.out.println("------------X-Right");   
-                    orientation = (orientation+1)%4;
-	                return "TURN_RIGHT";
-	            }
+	        else {
+	            orientation = (orientation+3)%4;
+	            return "TURN_LEFT";
 	        }
 	    }
-        System.out.println("------------Power OFF! D:");
-        return "TURN_OFF";   
-	}    
+	}
 }
