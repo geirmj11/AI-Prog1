@@ -2,14 +2,13 @@ import java.util.*;
 
 public class UniformSearch
 {
-    
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirt, ArrayList<Point> bumps)
 	{
 		State cur = new State(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
 
 		//Shearch for the path.
-		PriorityQueue<WeightedState> frontier = new LinkedList<State>(dirt.size(), );
-		HashSet<WeightedState> visited = new HashSet<State>();
+		PriorityQueue<WeightedState> frontier = new PriorityQueue<WeightedState>();
+		HashSet<WeightedState> visited = new HashSet<WeightedState>();
 		while (cur.dirt.size() > 0)
 		{
 			if (!visited.contains(cur))
@@ -24,8 +23,8 @@ public class UniformSearch
 				break; // No solution found.
 		}
 		//Get home ! :)
-		frontier = new LinkedList<State>();
-		visited = new HashSet<State>();
+		frontier = new PriorityQueue<WeightedState>();
+		visited = new HashSet<WeightedState>();
 		while (!cur.curPos.equals(home))
 		{
 			if (!visited.contains(cur))
