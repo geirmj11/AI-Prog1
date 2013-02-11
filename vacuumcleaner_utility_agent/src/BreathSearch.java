@@ -13,8 +13,8 @@ public class BreathSearch
 	//	//Shearch for the path.
 	//	Queue<State> frontier = new LinkedList<State>();
 	//	while (cur.dirt.size() > 0) {
-	//		for (State p : cur.legalMoves(size.x,size.y))
-	//			frontier.add(p);
+    //        for (State s : cur.legalMoves(size.x,size.y))
+	//			frontier.add(s);
 	//		cur = frontier.remove();
 	//	}	
 	//	
@@ -28,8 +28,11 @@ public class BreathSearch
 	//	
 	//	//Building the path.
 	//	Stack<Point> path = new Stack<Point>();
-	//	for	(;cur != null; cur = cur.prevPos)
+    //    System.out.println("Path:");
+	//	for	(;cur != null; cur = cur.prevPos){			
+    //        System.out.println("x: " + cur.curPos.x + " y:" + cur.curPos.y);
 	//		path.push(cur.curPos);
+	//	}
 	//	path.pop();// taking out the first spot.
 	//	return path;
 	//}
@@ -74,7 +77,7 @@ public class BreathSearch
 		
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();	
-            System.out.println("Path:");
+        System.out.println("Path:");
 		for	(;cur != null; cur = cur.prevPos){			
             System.out.println("x: " + cur.curPos.x + " y:" + cur.curPos.y);
 			path.push(cur.curPos);
