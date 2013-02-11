@@ -87,6 +87,7 @@ public class AgentCoulson implements Agent
         if(this.obstacles == null)  System.out.println("------------obstacles null!");
         if(this.dirt == null)  System.out.println("------------obstacles null!");
         System.out.println("------------blerg!");
+		//this.path = testSearch(this.home, this.size, this.dirt, this.obstacles);
 		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
         System.out.println("------------more blerg");
     }
@@ -107,11 +108,17 @@ public class AgentCoulson implements Agent
             System.out.println("------------- Power off:");
     	    return "TURN_OFF";
     	}
-    
-		for (String p : percepts) {
-			if (p.equals("DIRT"))
-				return "SUCK";
-		}
+        int spot = dirt.indexOf(new Point(this.x,this.y));
+        if(spot >= 0){
+            dirt.remove(spot);
+            return "SUCK";
+        }
+//		for (String p : percepts) {
+//		    System.out.println(p);
+//			if (p.equals("DIRT")) {
+//				return "SUCK";
+//		    }
+//		}
    
 	    Point dest = path.peek();
 	    System.out.println("------------DEST" + dest.x + "," + dest.y); 
