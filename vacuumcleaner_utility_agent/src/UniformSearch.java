@@ -15,22 +15,19 @@ public class UniformSearch
 			{
 				visited.add(cur);
 				for (WeightedState leagalMove : cur.legalMoves(size.x,size.y)){
-					if (!frontier.contains(leagalMove)) 
-						frontier.add(leagalMove);
-					else{// Need to update the exsting state.
-						boolean needUpdate = false;
-						for(WeightedState s : frontier) {
-							if (s.equals(leagalMove)) {
-									if (s.weight > leagalMove.weight)
-									needUpdate = true;
-								break;
-							}
-						}
-						if (needUpdate) {// Update the weight.
-							frontier.add(leagalMove);	// this contains the new weigth.
-							//System.out.println("Update " + cur.weight + "  " + frontier.size() + " " + visited.size());
+					boolean needUpdate = false, contains = false;
+					for(WeightedState s : frontier) {
+						if (s.equals(leagalMove)) {
+							if (s.weight > leagalMove.weight)
+								needUpdate = true;
+							contains = true;
+							break;
 						}
 					}
+					if (needUpdate)// Update the weight.
+						frontier.add(leagalMove);	// this contains the new weigth.
+					else if (!contains) // need to add it.
+						frontier.add(leagalMove);
 				}
 			}
 			if  (frontier.size() > 0)
