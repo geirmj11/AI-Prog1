@@ -72,11 +72,11 @@ public class AgentCoulson implements Agent
 		}
 		//this.path = testSearch(this.home, this.size, this.dirt, this.obstacles);
 		long timeComp = System.nanoTime();
-		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+//		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
 		timeComp = System.nanoTime() - timeComp;
 		System.out.println("Time complexity: " + timeComp);
 //		this.path = DepthSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
-//		this.path = UniformSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+		this.path = UniformSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
 //		this.path = AstarSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
     }
 
