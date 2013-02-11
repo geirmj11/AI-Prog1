@@ -36,7 +36,7 @@ public class State
 				}
 				
 		for (State s : l)
-			for (int i = 0; i < dirt.size(); i++)
+			for (int i = 0; i < s.dirt.size(); i++)
 				if (s.curPos.equals(dirt.get(i))) {
 					s.dirt.remove(i);
 					i--;
