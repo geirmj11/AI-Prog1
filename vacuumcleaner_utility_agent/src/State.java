@@ -30,15 +30,18 @@ public class State
 		
 		for (Point p : bumps)
 			for (int i = 0; i < l.size(); i++)
-				if (l.get(i).curPos.equals(p)){
+				if (l.get(i).curPos.equals(p)) {
 					l.remove(l.get(i));
 					i--;
 				}
 				
-		for (Point d : dirt)
-			for (State s : l)
-				if (s.curPos.equals(d))
-					s.dirt.remove(s);
+		for (State s : l)
+			for (int i = 0; i < dirt.size(); i++)
+				if (s.curPos.equals(dirt.get(i))) {
+					s.dirt.remove(i);
+					i--;
+					System.out.println("Dirt at: x: " + s.curPos.x + "y: " + s.curPos.y);
+				}
 					
 		return l;
 	}

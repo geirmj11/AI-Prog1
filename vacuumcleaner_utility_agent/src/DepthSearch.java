@@ -28,27 +28,27 @@ public class DepthSearch
 		}	
 		
 		//Get home ! :)
-		//frontier = new LinkedList<State>();
-		//visited = new ArrayList<State>();
-		//while (!cur.curPos.equals(home))
-		//{		
-		//	if (!visited.contains(cur))
-		//	{
-		//		visited.add(cur);
-		//		for (State p : cur.legalMoves(size.x,size.y))
-		//			frontier.add(p);
-		//	}
-		//	if (frontier.size() > 0)
-		//		cur = frontier.remove();
-		//	else
-		//		break; // No solution found.
-		//}	
+		frontier = new Stack<State>();
+		visited = new ArrayList<State>();
+		while (!cur.curPos.equals(home))
+		{		
+			if (!visited.contains(cur))
+			{
+				visited.add(cur);
+				for (State p : cur.legalMoves(size.x,size.y))
+					frontier.add(p);
+			}
+			if (frontier.size() > 0)
+				cur = frontier.pop();
+			else
+				break; // No solution found.
+		}	
 		
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();
 		for	(;cur != null; cur = cur.prevPos)
 			path.push(cur.curPos);
-		
+		path.pop();
 		return path;
 	}
 }
