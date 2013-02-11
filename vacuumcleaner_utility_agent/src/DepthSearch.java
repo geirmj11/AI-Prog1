@@ -1,20 +1,16 @@
-import java.util.Collection;
-import java.util.Stack;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Stack;
+import java.util.*;
 
 public class DepthSearch
 {
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirts, ArrayList<Point> bumps)
 	{
-		State cur = new State(home, null,dirts,bumps);
+		State cur = new State(home, null,new HashSet<Point>(dirts),new HashSet<Point>(bumps));
 		
 		//Shearch for the path.
 		Stack<State> frontier = new Stack<State>();
-		ArrayList<State> visited = new ArrayList<State>();
+		HashSet<State> visited = new HashSet<State>();
 		while (cur.dirt.size() > 0)
-		{		
+		{
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
@@ -29,7 +25,7 @@ public class DepthSearch
 		
 		//Get home ! :)
 		frontier = new Stack<State>();
-		visited = new ArrayList<State>();
+		visited = new HashSet<State>();
 		while (!cur.curPos.equals(home))
 		{		
 			if (!visited.contains(cur))
@@ -45,9 +41,12 @@ public class DepthSearch
 		}	
 		
 		//Building the path.
-		Stack<Point> path = new Stack<Point>();
-		for	(;cur != null; cur = cur.prevPos)
+		Stack<Point> path = new Stack<Point>();	
+        System.out.println("Path:");
+		for	(;cur != null; cur = cur.prevPos){			
+            System.out.println("x: " + cur.curPos.x + " y:" + cur.curPos.y);
 			path.push(cur.curPos);
+		}
 		path.pop();
 		return path;
 	}

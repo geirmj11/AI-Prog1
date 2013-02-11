@@ -1,18 +1,17 @@
-import java.util.Collection;
-import java.util.ArrayList; 
+import java.util.*;
 
 public class State
 {
-	public State(Point curPos, State prevPos, ArrayList<Point> dirt,  ArrayList<Point> bumps)
+	public State(Point curPos, State prevPos, HashSet<Point> dirt,  HashSet<Point> bumps)
 	{
 		this.curPos = curPos;
 		this.prevPos = prevPos;
 		this.bumps = bumps;
-		this.dirt = (ArrayList<Point>)dirt.clone();
+		this.dirt = (HashSet<Point>)dirt.clone();
 	}
 	
-	public ArrayList<Point> bumps;
-	public ArrayList<Point> dirt;
+	public HashSet<Point> bumps;
+	public HashSet<Point> dirt;
 	
 	public State prevPos;
 	public Point curPos;
@@ -29,35 +28,20 @@ public class State
 			l.add(new State(new Point(curPos.x,curPos.y + 1),this, dirt, bumps));
 		if (curPos.y - 1 > 0)                                         
 			l.add(new State(new Point(curPos.x,curPos.y - 1),this, dirt, bumps));
-		
-		for (Point b : bumps)
-			for (int i = 0; i < l.size(); i++)
-				if (l.get(i).curPos.equals(b)) {
-					l.remove(i);
-					i--;
-				}
-				
-		for (State s : l)
-			for (int i = 0; i < dirt.size(); i++)
-				if (s.curPos.equals(s.dirt.get(i))) {
-					s.dirt.remove(i);
-					break;
-				}
-					
-		return l;
-	}
 	
-	State DoMove(int x, int y) {
-		State s = new State(new Point(x,y),this,dirt,bumps);
-		for (int i = 0; i < s.dirt.size(); i++)
-			if (s.curPos.equals(s.dirt.get(i))) {
-				s.dirt.remove(i);
+		for (int i = 0; i < l.size(); i++)
+			if (bumps.contains(l.get(i).curPos)) {
+				l.remove(i);
 				i--;
 			}
-		return s;
-	}
+				
+		for (State s : l)
+			if (dirt.contains(s.curPos))
+				s.dirt.remove(s.curPos);
+		return l;
+	}	
 	
-	
+    @Override
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
@@ -69,10 +53,22 @@ public class State
 		State other = (State)obj;
 		if (!curPos.equals(other.curPos))
 			return false;
-			
+		
 		if (dirt.size() != other.dirt.size())
 			return false;
 			
+		for (Point d : dirt)
+			if (!other.dirt.contains(d))
+				return false;
+				
 		return true;
+    }
+	
+	@Override
+    public int hashCode(){
+        int hash = curPos.hashCode();
+		for (Point d : dirt)
+			hash += d.hashCode();
+        return hash;
     }
 }
