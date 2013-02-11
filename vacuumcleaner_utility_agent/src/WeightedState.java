@@ -2,13 +2,15 @@ import java.util.*;
 
 public class WeightedState implements Comparable<WeightedState>
 {
-	public WeightedState(Point curPos, WeightedState prevPos, HashSet<Point> dirt,  HashSet<Point> bumps)
+	public WeightedState(Point curPos, WeightedState prevPos, HashSet<Point> dirt, HashSet<Point> bumps)
 	{
 		this.curPos = curPos;
 		this.prevPos = prevPos;
 		this.bumps = bumps;
 		this.dirt = (HashSet<Point>)dirt.clone();
 		this.weight = 0;
+		if (prevPos != null)
+			weight = prevPos.weight;
 	}
 	
 	public HashSet<Point> bumps;
@@ -18,9 +20,7 @@ public class WeightedState implements Comparable<WeightedState>
 	public Point curPos;
 	public int weight;
 	
-	ArrayList<WeightedState> legalMoves(int height, int width) {
-		//System.out.println("height: " + height + " width " + width);
-		
+	ArrayList<WeightedState> legalMoves(int height, int width) {		
 		ArrayList<WeightedState> l = new ArrayList<WeightedState>();
 		if (curPos.x + 1 <= height)
 			l.add(new WeightedState(new Point(curPos.x + 1,curPos.y),this, dirt, bumps));
@@ -30,7 +30,7 @@ public class WeightedState implements Comparable<WeightedState>
 			l.add(new WeightedState(new Point(curPos.x,curPos.y + 1),this, dirt, bumps));
 		if (curPos.y - 1 > 0)                                         
 			l.add(new WeightedState(new Point(curPos.x,curPos.y - 1),this, dirt, bumps));
-	
+		
 		for (int i = 0; i < l.size(); i++)
 			if (bumps.contains(l.get(i).curPos)) {
 				l.remove(i);
@@ -44,11 +44,12 @@ public class WeightedState implements Comparable<WeightedState>
 				continue;
 			
 			if (ws.curPos.equals(prevPos.curPos))
-				ws.weight = 3;//Requires a uturn.
+				ws.weight = this.weight + 3;//Requires a uturn.
 			else if (prevPos.curPos.x == ws.curPos.x ||
 				  prevPos.curPos.y == ws.curPos.y)
-				  ws.weight = 1; // has to turn.
-			else ws.weight = 2; // has to turn.
+				  ws.weight = this.weight + 1; // Can go forward.
+			else 
+				ws.weight = this.weight + 2; // has to turn.
 				
 		}
 		return l;
