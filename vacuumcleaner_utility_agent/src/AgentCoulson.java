@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.System;
 
 public class AgentCoulson implements Agent
 {
@@ -69,12 +70,14 @@ public class AgentCoulson implements Agent
 				System.err.println("strange percept that does not match pattern: " + percept);
 			}
 		}
-        if(this.obstacles == null)  System.out.println("------------obstacles null!");
-        if(this.dirt == null)  System.out.println("------------obstacles null!");
-        System.out.println("------------blerg!");
 		//this.path = testSearch(this.home, this.size, this.dirt, this.obstacles);
-		this.path = UniformSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
-        System.out.println("------------more blerg");
+		long timeComp = System.nanoTime();
+		this.path = BreathSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+		timeComp = System.nanoTime() - timeComp;
+		System.out.println("Time complexity: " + timeComp);
+//		this.path = DepthSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+//		this.path = UniformSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
+//		this.path = AstarSearch.getPath(this.home, this.size, this.dirt, this.obstacles);
     }
 
     public String nextAction(Collection<String> percepts) {
@@ -84,13 +87,10 @@ public class AgentCoulson implements Agent
         //String[] actions = { "TURN_ON", "TURN_OFF", "TURN_RIGHT", "TURN_LEFT", "GO", "SUCK" };
         if(!power) {
             power = true;
-            System.out.println("------------Power on:");
             return "TURN_ON";
         }
-        if(path == null) System.out.println("------------NULL!!:");
 	    if(path.empty()) {
 	        power = false;
-            System.out.println("------------- Power off:");
     	    return "TURN_OFF";
     	}
         int spot = dirt.indexOf(new Point(this.x,this.y));
