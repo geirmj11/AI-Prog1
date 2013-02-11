@@ -8,7 +8,7 @@ public class AstarSearch
             int temp = ((p.x-check.curPos.x)*(p.x-check.curPos.x)+(p.y-check.curPos.y)*(p.y-check.curPos.y)); //manhattan distance í næsta punkt
             returnValue += temp;
         }
-        return returnValue*2;
+        return returnValue;
     }
     
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirt, ArrayList<Point> bumps)
