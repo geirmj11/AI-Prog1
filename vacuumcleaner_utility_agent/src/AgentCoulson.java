@@ -118,8 +118,9 @@ public class AgentCoulson implements Agent
         if(dest.x == this.x){
 	        if(dest.y > this.y){
 	            if(orientation == 0){
+	                this.y = dest.y;
                     path.pop();
-                                System.out.println("------------GO:");
+                    System.out.println("------------GO:");
 	                return "GO";
 	            }
 	            if(orientation == 1) {
@@ -135,6 +136,7 @@ public class AgentCoulson implements Agent
 	        }
 	        if(dest.y < this.y){
 	            if(orientation == 2){
+  	                this.y = dest.y;
 	                path.pop();
 	                return "GO";
 	            }
@@ -153,6 +155,7 @@ public class AgentCoulson implements Agent
 	    else{
 	        if(dest.x > this.x){
 	            if(orientation == 1){
+   	                this.x = dest.x;
                     path.pop();
                     System.out.println("------------gow:");
 	                return "GO";
@@ -170,6 +173,7 @@ public class AgentCoulson implements Agent
 	        }
 	        if(dest.x < this.x){
 	            if(orientation == 3){
+   	                this.x = dest.x;
 	                path.pop();
                     System.out.println("------------goW:");
 	                return "GO";
