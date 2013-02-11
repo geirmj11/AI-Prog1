@@ -8,7 +8,7 @@ public class WeightedState implements Comparable<WeightedState>
 		this.prevPos = prevPos;
 		this.bumps = bumps;
 		this.dirt = (HashSet<Point>)dirt.clone();
-		this.weight = 1;
+		this.weight = 0;
 	}
 	
 	public HashSet<Point> bumps;
@@ -42,11 +42,14 @@ public class WeightedState implements Comparable<WeightedState>
 				ws.dirt.remove(ws.curPos);
 			if (prevPos == null)
 				continue;
-			if (!((prevPos.curPos.x + ws.curPos.x)/2 == curPos.x && 
-				(prevPos.curPos.y + ws.curPos.y)/2 == curPos.y))
-				ws.weight = 2; // has to turn left.
+			
 			if (ws.curPos.equals(prevPos.curPos))
 				ws.weight = 3;//Requires a uturn.
+			else if (prevPos.curPos.x == ws.curPos.x ||
+				  prevPos.curPos.y == ws.curPos.y)
+				  ws.weight = 1; // has to turn.
+			else ws.weight = 2; // has to turn.
+				
 		}
 		return l;
 	}	
@@ -66,11 +69,11 @@ public class WeightedState implements Comparable<WeightedState>
 		
 		if (dirt.size() != other.dirt.size())
 			return false;
-			
+	
 		for (Point d : dirt)
 			if (!other.dirt.contains(d))
 				return false;
-				
+			
 		return true;
     }
 	
@@ -79,7 +82,7 @@ public class WeightedState implements Comparable<WeightedState>
         int hash = curPos.hashCode();
 		for (Point d : dirt)
 			hash += d.hashCode();
-        return hash;
+        return hash + weight;
     }
 	
 	@Override

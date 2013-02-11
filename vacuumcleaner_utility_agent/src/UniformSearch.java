@@ -14,30 +14,45 @@ public class UniformSearch
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
-				for (WeightedState p : cur.legalMoves(size.x,size.y))
-					frontier.add(p);
+				for (WeightedState p : cur.legalMoves(size.x,size.y)){
+					if (!frontier.contains(p)) 
+						frontier.add(p);
+					else{// Need to update the exsting state.
+						boolean needUpdate = false;
+						for(WeightedState s : frontier) {
+							if (s.equals(p) && s.weight > p.weight)
+								needUpdate = true;
+						}
+						if (needUpdate) {// Update the weight. 
+							frontier.remove(p); // This contains the old weight
+							frontier.add(p);	// and this the new one.
+						}
+					}
+				}
 			}
 			if  (frontier.size() > 0)
-				cur = frontier.remove();
+				cur = frontier.poll();
 			else
 				break; // No solution found.
 		}
+		
 		//Get home ! :)
-		frontier = new PriorityQueue<WeightedState>();
+		Queue<WeightedState> pathHome = new LinkedList<WeightedState>();
 		visited = new HashSet<WeightedState>();
 		while (!cur.curPos.equals(home))
-		{
+		{		
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
 				for (WeightedState p : cur.legalMoves(size.x,size.y))
-					frontier.add(p);
+					pathHome.add(p);
 			}
-			if (frontier.size() > 0)
-				cur = frontier.remove();
+			if (pathHome.size() > 0)
+				cur = pathHome.remove();
 			else
 				break; // No solution found.
-		}
+		}	
+		
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();	
         System.out.println("Path:");

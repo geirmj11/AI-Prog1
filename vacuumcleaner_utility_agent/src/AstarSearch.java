@@ -5,7 +5,7 @@ public class AstarSearch
     public static int heuristic(WeightedState check) {
         int returnValue = 0;
         for(Point p : check.dirt) {
-            int temp = ((p.x-check.curPos.x)*(p.x-check.curPos.x)+(p.y-check.curPos.y)*(p.y-check.curPos.y)); //manhattan distance í næsta punkt
+            int temp = Math.abs(p.x-check.curPos.x)+Math.abs(p.y-check.curPos.y); //manhattan distance í næsta punkt
             returnValue += temp;
         }
         return returnValue;
@@ -22,10 +22,23 @@ public class AstarSearch
 		{
 			if (!visited.contains(cur))
 			{
-			    cur.weight += heuristic(cur);
+				cur.weight += heuristic(cur);
 				visited.add(cur);
-				for (WeightedState p : cur.legalMoves(size.x,size.y))
-					frontier.add(p);
+				for (WeightedState p : cur.legalMoves(size.x,size.y)){
+					if (!frontier.contains(p)) 
+						frontier.add(p);
+					else{// Need to update the exsting state.
+						boolean needUpdate = false;
+						for(WeightedState s : frontier) {
+							if (s.equals(p) && s.weight > p.weight)
+								needUpdate = true;
+						}
+						if (needUpdate) {// Update the weight. 
+							frontier.remove(p); // This contains the old weight
+							frontier.add(p);	// and this the new one.
+						}
+					}
+				}
 			}
 			if  (frontier.size() > 0)
 				cur = frontier.remove();
@@ -40,8 +53,21 @@ public class AstarSearch
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
-				for (WeightedState p : cur.legalMoves(size.x,size.y))
-					frontier.add(p);
+				for (WeightedState p : cur.legalMoves(size.x,size.y)){
+					if (!frontier.contains(p)) 
+						frontier.add(p);
+					else{// Need to update the exsting state.
+						boolean needUpdate = false;
+						for(WeightedState s : frontier) {
+							if (s.equals(p) && s.weight > p.weight)
+								needUpdate = true;
+						}
+						if (needUpdate) {// Update the weight. 
+							frontier.remove(p); // This contains the old weight
+							frontier.add(p);	// and this the new one.
+						}
+					}
+				}
 			}
 			if (frontier.size() > 0)
 				cur = frontier.remove();
