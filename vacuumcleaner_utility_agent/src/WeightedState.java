@@ -2,6 +2,16 @@ import java.util.*;
 
 public class WeightedState
 {
+    public static final Comparator<WeightedState> Weight_Order = new Weight_Order();
+	
+	private static class Weight_Order implements Comparator<WeightedState> {
+        public int compare(WeightedState s1, WeightedState s2) {
+            if (s1.weight < s2.weight) return -1;
+            if (s1.weight > s2.weight) return +1;
+            return 0;
+        }
+    }
+
 	public WeightedState(Point curPos, WeightedState prevPos, HashSet<Point> dirt,  HashSet<Point> bumps)
 	{
 		this.curPos = curPos;
