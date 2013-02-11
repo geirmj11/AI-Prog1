@@ -19,11 +19,11 @@ public class State
 	
 	ArrayList<State> legalMoves(int height, int width) {
 		ArrayList<State> l = new ArrayList<State>();
-		if (curPos.x + 1 < height)
+		if (curPos.x + 1 <= height)
 			l.add(new State(new Point(curPos.x + 1,curPos.y),this,dirt, bumps));
 		if (curPos.x - 1 >= 0)                                         
 			l.add(new State(new Point(curPos.x - 1,curPos.y),this,dirt, bumps));
-		if (curPos.y + 1 < width)                                      
+		if (curPos.y + 1 <= width)                                      
 			l.add(new State(new Point(curPos.x,curPos.y + 1),this,dirt, bumps));
 		if (curPos.y - 1 >= 0)                                         
 			l.add(new State(new Point(curPos.x,curPos.y - 1),this,dirt, bumps));
@@ -40,7 +40,7 @@ public class State
 				if (s.curPos.equals(dirt.get(i))) {
 					s.dirt.remove(i);
 					i--;
-					System.out.println("Dirt at: x: " + s.curPos.x + "y: " + s.curPos.y);
+					System.out.println("Dirt at: x: " + s.curPos.x + " y: " + s.curPos.y);
 				}
 					
 		return l;
