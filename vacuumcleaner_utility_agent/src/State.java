@@ -21,11 +21,11 @@ public class State
 		ArrayList<State> l = new ArrayList<State>();
 		if (curPos.x + 1 <= height)
 			l.add(new State(new Point(curPos.x + 1,curPos.y),this,dirt, bumps));
-		if (curPos.x - 1 >= 0)                                         
+		if (curPos.x - 1 > 0)                                         
 			l.add(new State(new Point(curPos.x - 1,curPos.y),this,dirt, bumps));
 		if (curPos.y + 1 <= width)                                      
 			l.add(new State(new Point(curPos.x,curPos.y + 1),this,dirt, bumps));
-		if (curPos.y - 1 >= 0)                                         
+		if (curPos.y - 1 > 0)                                         
 			l.add(new State(new Point(curPos.x,curPos.y - 1),this,dirt, bumps));
 		
 		for (Point p : bumps)
