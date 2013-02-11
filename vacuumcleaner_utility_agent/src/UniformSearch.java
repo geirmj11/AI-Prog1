@@ -4,7 +4,7 @@ public class UniformSearch
 {
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirt, ArrayList<Point> bumps)
 	{
-		State cur = new State(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
+		WeightedState cur = new WeightedState(home, null,new HashSet<Point>(dirt),new HashSet<Point>(bumps));
 
 		//Shearch for the path.
 		PriorityQueue<WeightedState> frontier = new PriorityQueue<WeightedState>();
@@ -14,7 +14,7 @@ public class UniformSearch
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
-				for (State p : cur.legalMoves(size.x,size.y))
+				for (WeightedState p : cur.legalMoves(size.x,size.y))
 					frontier.add(p);
 			}
 			if  (frontier.size() > 0)
@@ -30,7 +30,7 @@ public class UniformSearch
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
-				for (State p : cur.legalMoves(size.x,size.y))
+				for (WeightedState p : cur.legalMoves(size.x,size.y))
 					frontier.add(p);
 			}
 			if (frontier.size() > 0)
