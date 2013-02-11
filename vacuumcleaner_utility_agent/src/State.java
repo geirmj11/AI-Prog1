@@ -20,13 +20,13 @@ public class State
 	ArrayList<State> legalMoves(int height, int width) {
 		ArrayList<State> l = new ArrayList<State>();
 		if (curPos.x + 1 < height)
-			l.add(new State(new Point(curPos.x + 1,curPos.y),this,bumps,dirt));
-		if (curPos.x - 1 >= 0)                                  
-			l.add(new State(new Point(curPos.x - 1,curPos.y),this,bumps,dirt));
-		if (curPos.y + 1 < width)
-			l.add(new State(new Point(curPos.x,curPos.y + 1),this,bumps,dirt));
-		if (curPos.y - 1 >= 0)
-			l.add(new State(new Point(curPos.x,curPos.y - 1),this,bumps,dirt));
+			l.add(new State(new Point(curPos.x + 1,curPos.y),this,dirt, bumps));
+		if (curPos.x - 1 >= 0)                                         
+			l.add(new State(new Point(curPos.x - 1,curPos.y),this,dirt, bumps));
+		if (curPos.y + 1 < width)                                      
+			l.add(new State(new Point(curPos.x,curPos.y + 1),this,dirt, bumps));
+		if (curPos.y - 1 >= 0)                                         
+			l.add(new State(new Point(curPos.x,curPos.y - 1),this,dirt, bumps));
 		
 		for (Point p : bumps)
 			for (int i = 0; i < l.size(); i++)
@@ -44,7 +44,7 @@ public class State
 	}
 	
 	State DoMove(int x, int y) {
-		State s = new State(new Point(x,y),this,bumps,dirt);
+		State s = new State(new Point(x,y),this,dirt,bumps);
 		for (Point d : dirt)
 			if (s.curPos.equals(d))
 				s.dirt.remove(s);

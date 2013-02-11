@@ -45,10 +45,13 @@ public class BreathSearch
 		}	
 		
 		//Building the path.
-		Stack<Point> path = new Stack<Point>();
-		for	(;cur != null; cur = cur.prevPos)
+		Stack<Point> path = new Stack<Point>();	
+            //System.out.println("Path:");
+		for	(;cur != null; cur = cur.prevPos){			
+            //System.out.println("x: " + cur.curPos.x + " y:" + cur.curPos.y);
 			path.push(cur.curPos);
-		
+		}
+		path.pop();// taking out the first spot.
 		return path;
 	}
 }
