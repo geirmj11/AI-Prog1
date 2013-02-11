@@ -1,49 +1,14 @@
-import java.util.Collection;
-import java.util.Stack;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BreathSearch
 {
-	//public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirts, ArrayList<Point> bumps)
-	//{
-	//	State cur = new State(home, null,dirts,bumps);
-	//	
-	//	//Shearch for the path.
-	//	Queue<State> frontier = new LinkedList<State>();
-	//	while (cur.dirt.size() > 0) {
-    //        for (State s : cur.legalMoves(size.x,size.y))
-	//			frontier.add(s);
-	//		cur = frontier.remove();
-	//	}	
-	//	
-	//	//Get home ! :)
-	//	frontier = new LinkedList<State>();
-	//	while (!cur.curPos.equals(home)) {		
-	//		for (State p : cur.legalMoves(size.x,size.y))
-	//			frontier.add(p);
-	//		cur = frontier.remove();
-	//	}	
-	//	
-	//	//Building the path.
-	//	Stack<Point> path = new Stack<Point>();
-    //    System.out.println("Path:");
-	//	for	(;cur != null; cur = cur.prevPos){			
-    //        System.out.println("x: " + cur.curPos.x + " y:" + cur.curPos.y);
-	//		path.push(cur.curPos);
-	//	}
-	//	path.pop();// taking out the first spot.
-	//	return path;
-	//}
-
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirts, ArrayList<Point> bumps)
 	{
-		State cur = new State(home, null,dirts,bumps);
+		State cur = new State(home, null,new HashSet<Point>(dirts),new HashSet<Point>(bumps));
 		
 		//Shearch for the path.
 		Queue<State> frontier = new LinkedList<State>();
-		ArrayList<State> visited = new ArrayList<State>();
+		HashSet<State> visited = new HashSet<State>();
 		while (cur.dirt.size() > 0)
 		{
 			if (!visited.contains(cur))
@@ -60,7 +25,7 @@ public class BreathSearch
 		
 		//Get home ! :)
 		frontier = new LinkedList<State>();
-		visited = new ArrayList<State>();
+		visited = new HashSet<State>();
 		while (!cur.curPos.equals(home))
 		{		
 			if (!visited.contains(cur))

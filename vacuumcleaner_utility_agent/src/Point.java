@@ -12,6 +12,7 @@ public class Point
 	public int x;
 	public int y;
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == null)
             return false;
@@ -26,5 +27,10 @@ public class Point
 			return false;
 			
 		return true;
+    }
+	
+	@Override
+    public int hashCode(){
+        return 23 * x + 23 * y;
     }
 }
