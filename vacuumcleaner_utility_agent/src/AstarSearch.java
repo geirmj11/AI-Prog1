@@ -10,6 +10,7 @@ public class AstarSearch
         }
         return returnValue;
     }
+    //for test purposes
     
 	public static Stack<Point> getPath(Point home, Point size, ArrayList<Point> dirt, ArrayList<Point> bumps)
 	{
