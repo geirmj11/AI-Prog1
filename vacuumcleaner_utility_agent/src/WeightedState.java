@@ -36,7 +36,7 @@ public class WeightedState implements Comparable<WeightedState>
 				l.remove(i);
 				i--;
 			}
-				
+		
 		for (WeightedState ws : l){
 			if (dirt.contains(ws.curPos))
 				ws.dirt.remove(ws.curPos);
@@ -65,6 +65,7 @@ public class WeightedState implements Comparable<WeightedState>
             return false;
 		
 		WeightedState other = (WeightedState)obj;
+		
 		if (!curPos.equals(other.curPos))
 			return false;
 		
@@ -74,7 +75,7 @@ public class WeightedState implements Comparable<WeightedState>
 		for (Point d : dirt)
 			if (!other.dirt.contains(d))
 				return false;
-			
+		
 		return true;
     }
 	
@@ -83,13 +84,26 @@ public class WeightedState implements Comparable<WeightedState>
         int hash = curPos.hashCode();
 		for (Point d : dirt)
 			hash += d.hashCode();
-        return hash + weight;
+        return hash;
     }
 	
 	@Override
 	public int compareTo(WeightedState other) {
 		if (weight < other.weight) return -1;
 		if (weight > other.weight) return +1;
+		
+		if (dirt.size() < other.dirt.size())
+			return -1;
+		else if (dirt.size() > other.dirt.size())
+			return 1;
+		
+		if (curPos.compareTo(other.curPos) != 0)
+			return curPos.compareTo(other.curPos);
+		
+		for (Point d : dirt)
+			if (!other.dirt.contains(d))
+				return -1;
+		
 		return 0;
 	}
 

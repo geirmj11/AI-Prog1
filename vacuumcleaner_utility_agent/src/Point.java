@@ -1,7 +1,7 @@
 import java.util.Collection;
 import java.util.ArrayList; 
 
-public class Point
+public class Point implements Comparable<Point>
 {
 	public Point(int x, int y)
 	{
@@ -31,6 +31,15 @@ public class Point
 	
 	@Override
     public int hashCode(){
-        return 23 * x + 23 * y;
+        return 31 * x + 19 * y;
     }
+	
+	@Override
+    public int compareTo(Point other){
+		if (x < other.x) return -1;
+		if (x > other.x) return +1;
+		if (y < other.y) return -1;
+		if (y > other.y) return +1;
+		return 0;
+	}
 }

@@ -9,25 +9,17 @@ public class UniformSearch
 		//Shearch for the path.
 		PriorityQueue<WeightedState> frontier = new PriorityQueue<WeightedState>();
 		HashSet<WeightedState> visited = new HashSet<WeightedState>();
+		HashSet<WeightedState> inFrontier = new HashSet<WeightedState>();
 		while (cur.dirt.size() > 0)
 		{			
 			if (!visited.contains(cur))
 			{
 				visited.add(cur);
 				for (WeightedState leagalMove : cur.legalMoves(size.x,size.y)){
-					boolean needUpdate = false, contains = false;
-					for(WeightedState s : frontier) {
-						if (s.equals(leagalMove)) {
-							if (s.weight > leagalMove.weight)
-								needUpdate = true;
-							contains = true;
-							break;
-						}
-					}
-					if (needUpdate)// Update the weight.
-						frontier.add(leagalMove);	// this contains the new weigth.
-					else if (!contains) // need to add it.
+					if (!inFrontier.contains(leagalMove)) {
+						inFrontier.add(leagalMove);
 						frontier.add(leagalMove);
+					}
 				}
 			}
 			if  (frontier.size() > 0)
@@ -35,24 +27,27 @@ public class UniformSearch
 			else
 				break; // No solution found.
 		}
-        System.out.println("Get home");		
+        System.out.println("Get home: (" + home.x + "," + home.y + ")");		
 		//Get home ! :)
-		Queue<WeightedState> pathHome = new LinkedList<WeightedState>();
+		frontier = new PriorityQueue<WeightedState>();
 		visited = new HashSet<WeightedState>();
+		inFrontier = new HashSet<WeightedState>();
 		while (!cur.curPos.equals(home))
 		{		
-			if (!visited.contains(cur))
-			{
-				visited.add(cur);
-				for (WeightedState p : cur.legalMoves(size.x,size.y))
-					pathHome.add(p);
+			for (WeightedState leagalMove : cur.legalMoves(size.x,size.y)){
+				if (!inFrontier.contains(leagalMove) && !visited.contains(leagalMove)) {
+					inFrontier.add(leagalMove);
+					frontier.add(leagalMove);
+				}
 			}
-			if (pathHome.size() > 0)
-				cur = pathHome.remove();
+			if  (frontier.size() > 0){
+				visited.add(cur);
+				cur = frontier.poll();
+			}
 			else
 				break; // No solution found.
-		}	
-		
+		}
+		//713
 		//Building the path.
 		Stack<Point> path = new Stack<Point>();	
         System.out.println("Path:");
